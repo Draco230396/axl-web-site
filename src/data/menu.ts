@@ -4,11 +4,18 @@ export default [
     children: [
       {
         title: 'Tecnología',
-        links: ['Cloud', 'DevOps', 'IA']
+        links: [
+          { name: 'Cloud', route: '/solutions/cloud' },
+          { name: 'DevOps', route: '/solutions/devops' },
+          { name: 'IA', route: '/solutions/ia' }
+        ]
       },
       {
         title: 'Negocio',
-        links: ['Consultoría', 'Transformación Digital']
+        links: [
+          { name: 'Consultoría', route: '/solutions/consulting' },
+          { name: 'Transformación Digital', route: '/solutions/digital' }
+        ]
       }
     ]
   },
@@ -17,11 +24,15 @@ export default [
     children: [
       {
         title: 'Sectores',
-        links: ['Finanzas', 'Retail', 'Salud']
+        links: [
+          { name: 'Finanzas', route: '/industries/finance' },
+          { name: 'Retail', route: '/industries/retail' },
+          { name: 'Salud', route: '/industries/health' }
+        ]
       }
     ]
   },
-  { label: 'Medios' },
-  { label: 'Acerca de' },
-  { label: 'Carreras' }
+  { label: 'Medios', route: '/media' },
+  { label: 'Acerca de', route: '/about' },
+  { label: 'Carreras', route: '/careers' }
 ]

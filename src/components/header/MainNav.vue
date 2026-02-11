@@ -11,7 +11,19 @@
           @mouseenter="openMenu(item.label)"
           @mouseleave="closeMenu"
         >
-          <span>{{ item.label }}</span>
+          <!-- Si tiene ruta -->
+          <router-link
+            v-if="item.route"
+            :to="item.route"
+            class="menu-link"
+          >
+            {{ item.label }}
+          </router-link>
+
+          <!-- Si tiene submenu -->
+          <span v-else class="menu-link">
+            {{ item.label }}
+          </span>
 
           <MegaMenu
             v-if="item.children && open === item.label"

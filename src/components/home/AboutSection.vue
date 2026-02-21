@@ -26,7 +26,7 @@
       </div>
 
       <div class="image">
-        <img src="../assets/images/home/prueba.png" alt="Colocar uma imagen de prueba">
+        <img src="@/assets/images/home/prueba.png" alt="Colocar uma imagen de prueba">
       </div>
 
     </div>

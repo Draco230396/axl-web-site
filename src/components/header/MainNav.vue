@@ -1,6 +1,8 @@
 <template>
   <div class="main-bar">
-    <img class="logo" src="../../assets/images/logo-con-razon.png" />
+    <router-link to="/">
+      <img class="logo" src="@/assets/images/logo-con-razon.png" alt="AXL Logo" />
+    </router-link>
 
     <nav>
       <ul>
@@ -11,7 +13,14 @@
           @mouseenter="openMenu(item.label)"
           @mouseleave="closeMenu"
         >
-          <span>{{ item.label }}</span>
+          <router-link 
+            v-if="item.link" 
+            :to="item.link" 
+            class="nav-item-link"
+          >
+            {{ item.label }}
+          </router-link>
+          <span v-else>{{ item.label }}</span>
 
           <MegaMenu
             v-if="item.children && open === item.label"
@@ -26,7 +35,7 @@
 <script setup>
 import { ref } from 'vue'
 import MegaMenu from './MegaMenu.vue'
-import menu from '../../data/menu'
+import menu from '@/data/menu'
 
 const open = ref(null)
 let timeout
@@ -72,6 +81,13 @@ span {
   color: rgb(255, 255, 255);
   font-size: 14px;
   text-transform: uppercase;
+  cursor: pointer;
+}
+.nav-item-link {
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  text-transform: uppercase;
+  text-decoration: none;
   cursor: pointer;
 }
 .mega {

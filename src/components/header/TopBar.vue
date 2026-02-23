@@ -1,13 +1,15 @@
 <template>
   <div class="top-bar">
     <div class="left">
-      <a href="#">Oficinas</a>
-      <a href="#">Contacto</a>
+      <span>📞 +52 2381476695</span>
+      <router-link to="/contact">Soporte y Consultoría</router-link>
     </div>
 
     <div class="right">
-      <LanguageSwitcher />
-      <SearchBox />
+      <div class="social-mini">
+        <a href="https://www.linkedin.com/in/a-x-l-advanced-exponential-logic9729a43aa/" target="_blank">LinkedIn</a>
+        <a href="https://wa.me/message/IXR5TMGSMIZJA1" target="_blank">WhatsApp</a>
+      </div>
     </div>
   </div>
 </template>

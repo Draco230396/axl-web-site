@@ -5,6 +5,7 @@
       v-for="section in items"
       :key="section.title"
     >
+
       <router-link 
         v-if="section.action" 
         :to="section.action"
@@ -22,6 +23,17 @@
       >
         {{ link }}
       </router-link>
+
+      <h4>{{ section.title }}</h4>
+        <router-link
+          v-for="link in section.links"
+          :key="link.name"
+          :to="link.route"
+          class="mega-link"
+        >
+          {{ link.name }}
+        </router-link>
+
     </div>
   </div>
 </template>
@@ -43,11 +55,23 @@ defineProps({
   padding: 30px;
   min-width: 600px;
 }
+
 .section-title-link {
   text-decoration: none;
 }
 .section-title-link:hover h4 {
   color: #0ea5e9;
+=======
+.mega-link {
+  display: block;
+  color: #e5e7eb;
+  font-size: 13px;
+  margin-bottom: 6px;
+  text-decoration: none;
+}
+.mega-link:hover {
+  color: #38bdf8;
+
 }
 .column h4 {
   color: #38bdf8;

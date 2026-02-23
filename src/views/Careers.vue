@@ -219,3 +219,8 @@ const jobs = [
   }
 }
 </style>
+  <div>
+    <h1>Careers</h1>
+  </div>
+</template>
+

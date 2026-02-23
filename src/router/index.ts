@@ -2,6 +2,12 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import About from "@/views/About.vue";
 import Projects from "@/views/Projects.vue";
+import Home from "../views/Home.vue";
+import About from "../views/About.vue";
+import Projects from "../views/Projects.vue";
+import Media from "../views/Media.vue";
+import Careers from "../views/Careers.vue";
+
 
 const routes = [
     {
@@ -48,6 +54,14 @@ const routes = [
         path: "/:pathMatch(.*)*",
         name: "NotFound",
         component: () => import("@/views/NotFound.vue")
+        path: "/media",
+        name: "Media",
+        component: Media
+    },
+    {
+       path: "/careers",
+       name: "Careers",
+       component: Careers
     }
 ]
 

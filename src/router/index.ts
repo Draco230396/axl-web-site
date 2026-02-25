@@ -59,9 +59,29 @@ const routes = [
         component: Media
     },
     {
-       path: "/careers",
-       name: "Careers",
-       component: Careers
+        path: "/insights",
+        name: "Insights",
+        component: () => import("@/views/Insights.vue")
+    },
+    {
+        path: "/careers",
+        name: "Careers",
+        component: () => import("@/views/Careers.vue")
+    },
+    {
+        path: "/privacy",
+        name: "Privacy",
+        component: () => import("@/views/PrivacyPolicy.vue")
+    },
+    {
+        path: "/terms",
+        name: "Terms",
+        component: () => import("@/views/Terms.vue")
+    },
+    {
+        path: "/:pathMatch(.*)*",
+        name: "NotFound",
+        component: () => import("@/views/NotFound.vue")
     }
 ]
 

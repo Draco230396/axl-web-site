@@ -2,7 +2,7 @@ name: Deploy a GitHub Pages
 
 on:
   push:
-    branches: ["ax1-20022026"] # ← Tu rama actual
+    branches: [ "ax1-20022026" ]
 
 jobs:
   build-and-deploy:

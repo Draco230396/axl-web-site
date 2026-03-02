@@ -76,18 +76,19 @@ const jobs = [
 .hero {
   background: linear-gradient(135deg, #1e293b, #0f172a);
   color: white;
-  padding: 100px 0 80px;
+  padding: 140px 0 100px;
   text-align: center;
 }
 
 .hero h1 {
   font-size: 3.5rem;
   font-weight: 800;
-  margin-bottom: 20px;
-  background: -webkit-linear-gradient(#fff, #94a3b8);
+  margin-bottom: 24px;
+  background: linear-gradient(to bottom, #fff, #94a3b8);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 1.1;
 }
 
 .hero p {
@@ -98,119 +99,165 @@ const jobs = [
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 
 .content-wrapper {
-  padding: 80px 20px;
+  padding: 100px 0;
 }
 
 .intro {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 
 .intro h2, .positions h2 {
   font-size: 2.5rem;
   color: #1e293b;
   margin-bottom: 24px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .intro p {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: #64748b;
-  max-width: 700px;
-  margin: 0 auto 40px;
-  line-height: 1.6;
+  max-width: 750px;
+  margin: 0 auto 50px;
+  line-height: 1.7;
 }
 
 .benefits-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .benefit-card {
   background: white;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  transition: transform 0.3s ease;
-  border: 1px solid #e2e8f0;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #f1f5f9;
+  text-align: left;
 }
 
 .benefit-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .benefit-card .icon {
-  font-size: 2.5rem;
+  font-size: 3rem;
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .benefit-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 8px;
-  color: #1e293b;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.benefit-card p {
+  color: #64748b;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.positions {
+  margin-top: 40px;
 }
 
 .jobs-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .job-card {
   background: white;
   padding: 24px 32px;
-  border-radius: 12px;
+  border-radius: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #e2e8f0;
-  transition: all 0.2s;
+  border: 1px solid #f1f5f9;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .job-card:hover {
-  border-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  border-color: #2563eb;
+  transform: scale(1.02);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1);
 }
 
 .job-info h3 {
-  font-size: 1.2rem;
-  color: #1e293b;
-  margin-bottom: 4px;
+  font-size: 1.25rem;
+  color: #0f172a;
+  margin-bottom: 6px;
+  font-weight: 700;
 }
 
 .job-type {
   color: #64748b;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .apply-btn {
   background: #2563eb;
   color: white;
-  padding: 10px 24px;
-  border-radius: 50px;
+  padding: 12px 28px;
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  font-size: 0.95rem;
 }
 
 .apply-btn:hover {
   background: #1d4ed8;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
+  .hero h1 { font-size: 3rem; }
+  .intro h2, .positions h2 { font-size: 2.25rem; }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+  
+  .hero {
+    padding: 120px 0 80px;
+  }
+
+  .hero h1 { font-size: 2.5rem; }
+  .intro h2, .positions h2 { font-size: 2rem; }
+
+  .content-wrapper {
+    padding: 60px 0;
+  }
+
+  .intro {
+    margin-bottom: 60px;
+  }
+
   .job-card {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 30px;
   }
   
   .apply-btn {
@@ -219,8 +266,5 @@ const jobs = [
   }
 }
 </style>
-  <div>
-    <h1>Careers</h1>
-  </div>
-</template>
+
 

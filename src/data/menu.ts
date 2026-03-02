@@ -5,15 +5,6 @@ export default [
     children: [
       {
         title: 'Tecnología',
-
-        links: ['Cloud', 'DevOps', 'IA'], // En un futuro: links: [{ label: 'Cloud', url: '/services#cloud' }]
-        action: '/services' // Redirección temporal
-      },
-      {
-        title: 'Negocio',
-        links: ['Consultoría', 'Transformación Digital'],
-        action: '/services'
-
         links: [
           { name: 'Cloud', route: '/solutions/cloud' },
           { name: 'DevOps', route: '/solutions/devops' },
@@ -26,7 +17,6 @@ export default [
           { name: 'Consultoría', route: '/solutions/consulting' },
           { name: 'Transformación Digital', route: '/solutions/digital' }
         ]
-
       }
     ]
   },
@@ -35,17 +25,6 @@ export default [
     children: [
       {
         title: 'Sectores',
-
-        links: ['Finanzas', 'Retail', 'Salud'],
-        action: '/services'
-      }
-    ]
-  },
-  { label: 'Insights', link: '/insights' },
-  { label: 'Acerca de', link: '/about' },
-  { label: 'Carreras', link: '/careers' },
-  { label: 'Contacto', link: '/contact' }
-
         links: [
           { name: 'Finanzas', route: '/industries/finance' },
           { name: 'Retail', route: '/industries/retail' },
@@ -54,8 +33,9 @@ export default [
       }
     ]
   },
-  { label: 'Medios', route: '/media' },
-  { label: 'Acerca de', route: '/about' },
-  { label: 'Carreras', route: '/careers' }
-
+  { label: 'Insights', link: '/insights' },
+  { label: 'Medios', link: '/media' },
+  { label: 'Acerca de', link: '/about' },
+  { label: 'Carreras', link: '/careers' },
+  { label: 'Contacto', link: '/contact' }
 ]

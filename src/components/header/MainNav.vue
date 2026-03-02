@@ -1,32 +1,46 @@
 <template>
   <div class="main-bar">
-    <router-link to="/">
+    <router-link to="/" class="logo-link">
       <img class="logo" src="@/assets/images/logo-con-razon.png" alt="AXL Logo" />
     </router-link>
 
-    <nav>
+    <!-- Hamburger Button -->
+    <button 
+      class="menu-toggle" 
+      @click="isMobileMenuOpen = !isMobileMenuOpen" 
+      aria-label="Toggle menu"
+      :class="{ 'active': isMobileMenuOpen }"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav :class="{ 'mobile-nav-open': isMobileMenuOpen }">
       <ul>
         <li
           v-for="item in menu"
           :key="item.label"
           class="menu-item"
-          @mouseenter="openMenu(item.label)"
-          @mouseleave="closeMenu"
+          @mouseenter="!isMobile && openMenu(item.label)"
+          @mouseleave="!isMobile && closeMenu()"
+          @click="isMobile && toggleMobileSubmenu(item.label)"
         >
           <router-link 
             v-if="item.link" 
             :to="item.link" 
             class="nav-item-link"
+            @click="isMobileMenuOpen = false"
           >
             {{ item.label }} 
-            https://github.com/Draco230396/axl-web-site/pull/2/conflict?name=src%252Fcomponents%252Fheader%252FMegaMenu.vue&ancestor_oid=64fed9d65ade37b173b27c1df45e9464e43620ff&base_oid=8906e21cd861c7a983bdec56420ae987b8b6ba0d&head_oid=612c287f86a90607901e928bd1fbfa2c0f374dd5
           </router-link>
-          <span v-else>{{ item.label }}</span>
+          <span v-else class="nav-item-link">{{ item.label }}</span>
 
 
           <MegaMenu
-            v-if="item.children && open === item.label"
+            v-if="item.children && (open === item.label || (isMobile && mobileSubmenuOpen === item.label))"
             :items="item.children"
+            @close="isMobileMenuOpen = false"
           />
         </li>
       </ul>
@@ -35,12 +49,31 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import MegaMenu from './MegaMenu.vue'
 import menu from '@/data/menu'
 
 const open = ref(null)
+const isMobileMenuOpen = ref(false)
+const mobileSubmenuOpen = ref(null)
+const isMobile = ref(false)
 let timeout
+
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 1024
+  if (!isMobile.value) {
+    isMobileMenuOpen.value = false
+  }
+}
+
+onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile)
+})
 
 const openMenu = (label) => {
   clearTimeout(timeout)
@@ -53,51 +86,130 @@ const closeMenu = () => {
   }, 150)
 }
 
+const toggleMobileSubmenu = (label) => {
+  if (mobileSubmenuOpen.value === label) {
+    mobileSubmenuOpen.value = null
+  } else {
+    mobileSubmenuOpen.value = label
+  }
+}
+
 </script>
 
 <style scoped>
-.menu-item {
-  position: relative;
-}
 .main-bar {
   background: #3a3a3a;
-  overflow: visible;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 40px;
   position: relative;
-  z-index: 100;
+  z-index: 1000;
+  width: 100%;
 }
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
 .logo {
-  height: 100px;
+  height: 60px;
+  max-width: 100%;
+  object-fit: contain;
+  transition: height 0.3s;
 }
+
 nav {
   margin-left: auto;
+  display: flex;
 }
+
 ul {
   display: flex;
   gap: 30px;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
-span {
-  color: rgb(255, 255, 255);
-  font-size: 14px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
+
 .nav-item-link {
-  color: rgb(255, 255, 255);
+  color: #fff;
   font-size: 14px;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-}
-.mega {
-  z-index: 999;
-}
-li {
-  position: relative;
+  font-weight: 600;
+  transition: color 0.3s;
 }
 
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2000;
+  width: 44px;
+  height: 44px;
+}
 
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .main-bar {
+    padding: 10px 20px;
+  }
+  .logo {
+    height: 50px;
+  }
+  .menu-toggle {
+    display: flex;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: #1a1a1a;
+    flex-direction: column;
+    padding: 80px 0 20px;
+    transition: right 0.3s ease;
+    z-index: 1500;
+    box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+  }
+  nav.mobile-nav-open {
+    right: 0;
+  }
+  ul {
+    flex-direction: column;
+    gap: 0;
+  }
+  .nav-item-link {
+    display: block;
+    padding: 15px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-bar {
+    padding: 10px 15px;
+  }
+  .logo {
+    height: 40px;
+  }
+}
 </style>

@@ -16,5 +16,15 @@
   flex-direction: column;
   gap: 10px;
   font-size: 24px;
+  z-index: 1000;
+}
+
+@media (max-width: 480px) {
+  .social {
+    bottom: 15px;
+    right: 15px;
+    gap: 8px;
+    font-size: 20px;
+  }
 }
 </style>

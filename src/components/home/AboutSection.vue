@@ -36,54 +36,59 @@
 <style scoped>
 .about {
   background: #eaf1f7;
-  padding: 100px 0;
+  padding: 60px 0;
+  overflow: hidden;
+  width: 100%;
 }
 
 .container {
-  width: 85%;
+  width: 90%;
+  max-width: 1200px;
   margin: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 60px;
+  gap: 40px;
 }
 
 .text {
-  flex: 1;
+  width: 100%;
+  text-align: center;
 }
 
 .label {
-  letter-spacing: 4px;
-  font-size: 13px;
+  letter-spacing: 2px;
+  font-size: 12px;
   color: #1e3a8a;
   font-weight: 600;
 }
 
 h2 {
-  font-size: 42px;
-  margin: 20px 0;
+  font-size: clamp(1.5rem, 8vw, 2.5rem);
+  margin: 15px 0;
   color: #2563eb;
   line-height: 1.2;
 }
 
 p {
-  font-size: 16px;
+  font-size: 15px;
   color: #334155;
-  margin-bottom: 30px;
-  max-width: 500px;
+  margin: 0 auto 25px;
+  max-width: 100%;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  justify-content: center;
+  gap: 10px;
 }
 
 .tags span {
   border: 1px solid #2563eb;
-  padding: 8px 16px;
-  border-radius: 25px;
-  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
   color: #2563eb;
   cursor: pointer;
   transition: 0.3s;
@@ -95,13 +100,37 @@ p {
 }
 
 .image {
-  flex: 1;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .image img {
-  width: 380px;
-  border-radius: 50%;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 20px;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    flex-direction: row;
+    width: 85%;
+    gap: 60px;
+  }
+  .text {
+    flex: 1;
+    text-align: left;
+  }
+  .image {
+    flex: 1;
+  }
+  .image img {
+    width: 380px;
+    border-radius: 50%;
+  }
+  .tags {
+    justify-content: flex-start;
+  }
 }
 </style>

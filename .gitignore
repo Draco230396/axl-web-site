@@ -1,8 +1,8 @@
 # Dependencias
 node_modules/
 
-# Build de producción
-dist/
+# Build de producción, se comenta para pruebas en git y posterior se utilizar un archivo yml para el deploy
+#dist/
 
 # Archivos de entorno
 .env

@@ -1,41 +1,20 @@
-export default [
-  { label: 'Inicio', link: '/' },
-  {
-    label: 'Soluciones',
-    children: [
-      {
-        title: 'Tecnología',
-        links: [
-          { name: 'Cloud', route: '/solutions/cloud' },
-          { name: 'DevOps', route: '/solutions/devops' },
-          { name: 'IA', route: '/solutions/ia' }
-        ]
-      },
-      {
-        title: 'Negocio',
-        links: [
-          { name: 'Consultoría', route: '/solutions/consulting' },
-          { name: 'Transformación Digital', route: '/solutions/digital' }
-        ]
-      }
-    ]
-  },
-  {
-    label: 'Industrias',
-    children: [
-      {
-        title: 'Sectores',
-        links: [
-          { name: 'Finanzas', route: '/industries/finance' },
-          { name: 'Retail', route: '/industries/retail' },
-          { name: 'Salud', route: '/industries/health' }
-        ]
-      }
-    ]
-  },
+// Solo rutas que existen. "Inicio" se alcanza desde el logo y "Contacto" es el botón del encabezado.
+import { hasProjects } from './projects'
+
+export interface MenuItem {
+  label: string
+  link: string
+}
+
+const menu: MenuItem[] = [
+  { label: 'Servicios', link: '/#servicios' },
+  ...(hasProjects ? [{ label: 'Proyectos', link: '/projects' }] : []),
+  { label: 'Cómo trabajamos', link: '/#como-trabajamos' },
+  { label: 'Nosotros', link: '/about' },
   { label: 'Insights', link: '/insights' },
-  { label: 'Medios', link: '/media' },
-  { label: 'Acerca de', link: '/about' },
-  { label: 'Carreras', link: '/careers' },
-  { label: 'Contacto', link: '/contact' }
+  { label: 'Carreras', link: '/careers' }
 ]
+
+export const contactLink: MenuItem = { label: 'Cotizar proyecto', link: '/#cotizar' }
+
+export default menu

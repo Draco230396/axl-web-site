@@ -1,128 +1,104 @@
 <template>
-  <div class="insights-page">
-    <div class="hero">
-      <div class="container">
-        <h1>Insights & Technology</h1>
-        <p>Pensamiento estratégico, arquitectura de software y el futuro de la tecnología.</p>
-      </div>
-    </div>
+  <div>
+    <PageHero
+      kicker="Insights"
+      title="Tecnología explicada para quien toma decisiones"
+      lead="Arquitectura de software, automatización y transformación digital, sin tecnicismos innecesarios."
+    />
 
-    <div class="container content-wrapper">
-      <div class="coming-soon">
-        <div class="icon">🔍</div>
-        <h2>Estamos preparando contenido de alto valor</h2>
-        <p>Próximamente encontrarás aquí:</p>
-        <ul class="topics">
-          <li>Blog Técnico (Arquitectura, Cloud, Escalabilidad)</li>
-          <li>Casos de Éxito Estratégicos</li>
-          <li>Artículos sobre Transformación Digital</li>
-          <li>Noticias Corporativas y Alianzas</li>
-        </ul>
-        <router-link to="/contact" class="cta-btn">Suscríbete para recibir actualizaciones</router-link>
+    <section class="soon">
+      <div class="container layout">
+        <div>
+          <h2>Estamos preparando el primer contenido</h2>
+          <p>Pronto publicaremos aquí:</p>
+          <ul>
+            <li v-for="topic in topics" :key="topic">{{ topic }}</li>
+          </ul>
+        </div>
+        <aside class="panel on-dark">
+          <h3>Mientras tanto, pregúntanos directo</h3>
+          <p>Si tienes una duda sobre tu proyecto o tu operación, con gusto la platicamos.</p>
+          <router-link to="/#cotizar" class="btn btn-ice">Hablar con un especialista</router-link>
+        </aside>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
+import { usePageMeta } from '@/composables/usePageMeta'
+import PageHero from '@/components/PageHero.vue'
 
-useHead({
+usePageMeta({
   title: 'Insights',
-  meta: [
-    { name: 'description', content: 'Explora artículos técnicos y estratégicos sobre tecnología y transformación digital en A.X.L.' }
-  ]
+  description: 'Artículos sobre arquitectura de software, automatización y transformación digital de A.X.L.',
+  path: '/insights'
 })
+
+const topics = [
+  'Guías de arquitectura, nube y escalabilidad',
+  'Casos de estudio de proyectos reales',
+  'Automatización e integraciones en la práctica',
+  'Noticias y alianzas de A.X.L'
+]
 </script>
 
 <style scoped>
-.insights-page {
-  background-color: #f8fafc;
-  min-height: 100vh;
+.soon {
+  padding: var(--section-space) 0;
+  background: var(--paper);
 }
 
-.hero {
-  background: #0f172a;
-  color: white;
-  padding: 100px 0 80px;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-
-.hero p {
-  font-size: 1.25rem;
-  color: #94a3b8;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.content-wrapper {
-  padding: 100px 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.coming-soon {
-  text-align: center;
-  max-width: 600px;
-}
-
-.icon {
-  font-size: 4rem;
-  margin-bottom: 24px;
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
 }
 
 h2 {
-  font-size: 2rem;
-  color: #1e293b;
-  margin-bottom: 24px;
+  font-size: var(--text-2xl);
+  color: var(--ink);
 }
 
-p {
-  color: #64748b;
-  font-size: 1.1rem;
-  margin-bottom: 24px;
+.layout > div > p {
+  margin: 16px 0 12px;
+  color: var(--muted);
 }
 
-.topics {
-  list-style: none;
-  padding: 0;
-  margin: 0 auto 40px;
-  text-align: left;
-  display: inline-block;
+ul {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 10px;
+  color: var(--ink);
+  font-size: var(--text-lg);
 }
 
-.topics li {
+ul li::marker {
+  color: var(--signal);
+}
+
+.panel {
+  padding: clamp(24px, 4vw, 36px);
+  border-radius: var(--radius-lg);
+  background: var(--ink);
+  color: #ffffff;
+}
+
+.panel h3 {
+  font-size: var(--text-xl);
   margin-bottom: 12px;
-  color: #1e293b;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
-.topics li::before {
-  content: '→';
-  color: #2563eb;
+.panel p {
+  margin: 0 0 24px;
+  color: var(--muted-dark);
 }
 
-.cta-btn {
-  display: inline-block;
-  background: #2563eb;
-  color: white;
-  padding: 14px 32px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 700;
-  transition: transform 0.2s;
-}
-
-.cta-btn:hover {
-  transform: translateY(-2px);
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

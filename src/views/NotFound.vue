@@ -1,80 +1,85 @@
 <template>
-  <div class="not-found">
-    <div class="content">
-      <div class="error-code">404</div>
-      <h1>Página no encontrada</h1>
-      <p>Lo sentimos, la página que buscas no existe o ha sido movida.</p>
-      <router-link to="/" class="home-btn">Volver al Inicio</router-link>
+  <section class="not-found on-dark">
+    <div class="container">
+      <!-- Un trazo de circuito que se corta: la ruta no lleva a ningún lado -->
+      <svg class="trace" viewBox="0 0 320 80" aria-hidden="true">
+        <path d="M0 40 H120 V16 H170" />
+        <path class="broken" d="M200 16 H240 V64 H320" />
+        <circle cx="120" cy="40" r="4" />
+        <circle cx="170" cy="16" r="4" />
+        <circle cx="200" cy="16" r="4" />
+      </svg>
+      <p class="code">Error 404</p>
+      <h1>Esta página no existe</h1>
+      <p class="lead">Puede que el enlace esté mal escrito o que la página se haya movido.</p>
+      <div class="actions">
+        <router-link to="/" class="btn btn-ice">Ir al inicio</router-link>
+        <router-link to="/#cotizar" class="btn btn-ghost">Cotizar un proyecto</router-link>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 
 useHead({
   title: 'Página no encontrada',
-  meta: [
-    { name: 'robots', content: 'noindex' }
-  ]
+  meta: [{ name: 'robots', content: 'noindex' }]
 })
 </script>
 
 <style scoped>
 .not-found {
-  min-height: 80vh;
-  display: flex;
+  min-height: calc(100vh - var(--header-height));
+  display: grid;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: #f8fafc;
-  padding: 20px;
+  background: var(--ink);
+  color: #ffffff;
+  padding: 64px 0;
 }
 
-.content {
-  max-width: 600px;
+.trace {
+  width: 260px;
+  max-width: 100%;
+  margin-bottom: 32px;
+  fill: none;
+  stroke: var(--ice);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.error-code {
-  font-size: 8rem;
-  font-weight: 900;
-  color: #e2e8f0;
-  line-height: 1;
-  margin-bottom: 20px;
-  background: -webkit-linear-gradient(#cbd5e1, #94a3b8);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.trace .broken {
+  opacity: 0.35;
+  stroke-dasharray: 4 6;
+}
+
+.trace circle {
+  fill: var(--ink);
+}
+
+.code {
+  margin: 0 0 12px;
+  color: var(--ice);
+  font-weight: 600;
 }
 
 h1 {
-  font-size: 2rem;
-  color: #1e293b;
-  margin-bottom: 16px;
-  font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  letter-spacing: -0.03em;
 }
 
-p {
-  color: #64748b;
-  font-size: 1.1rem;
-  margin-bottom: 40px;
+.lead {
+  margin: 16px 0 36px;
+  color: var(--muted-dark);
+  font-size: var(--text-lg);
+  max-width: 46ch;
 }
 
-.home-btn {
-  display: inline-block;
-  background-color: #2563eb;
-  color: white;
-  padding: 14px 32px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-}
-
-.home-btn:hover {
-  background-color: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
 }
 </style>

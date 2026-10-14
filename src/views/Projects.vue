@@ -1,11 +1,10 @@
 <template>
   <div class="projects-page">
-    <div class="hero">
-      <div class="container">
-        <h1>Nuestro Portafolio</h1>
-        <p>Explora nuestros casos de éxito y descubre cómo transformamos ideas en realidad digital.</p>
-      </div>
-    </div>
+    <PageHero
+      kicker="Proyectos"
+      title="Proyectos que hemos construido"
+      lead="Casos reales de software a medida, integraciones y automatización."
+    />
 
     <div class="container content-wrapper">
       <!-- Filter Tags -->
@@ -24,25 +23,12 @@
       <!-- Projects Grid -->
       <div class="projects-grid">
         <TransitionGroup name="fade">
-          <div 
-            v-for="project in filteredProjects" 
-            :key="project.id" 
-            class="project-card"
-          >
-            <div class="image-wrapper">
-              <img :src="project.image" :alt="project.title" loading="lazy" />
-              <div class="overlay">
-                <a :href="project.link" class="view-btn">Ver Detalles</a>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="tags">
-                <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
-              </div>
-              <h3 class="card-title">{{ project.title }}</h3>
-              <p class="card-description">{{ project.description }}</p>
-            </div>
-          </div>
+          <ProjectCard
+            v-for="project in filteredProjects"
+            :key="project.id"
+            :project="project"
+            cta-label="Ver detalles"
+          />
         </TransitionGroup>
       </div>
       
@@ -56,66 +42,39 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useHead } from '@vueuse/head'
+import { usePageMeta } from '@/composables/usePageMeta'
 import projects from '@/data/projects'
+import ProjectCard from '@/components/ProjectCard.vue'
+import PageHero from '@/components/PageHero.vue'
 
-useHead({
-  title: 'Portafolio de Proyectos',
-  meta: [
-    { name: 'description', content: 'Explora nuestro portafolio de proyectos exitosos en desarrollo web, móvil y diseño UI/UX.' }
-  ]
+usePageMeta({
+  title: 'Proyectos',
+  description: 'Proyectos de desarrollo de software a medida, plataformas web y móviles, automatización e integraciones realizados por A.X.L.',
+  path: '/projects'
 })
 
-const activeCategory = ref('Todos')
+const ALL = 'Todos'
+const activeCategory = ref<string>(ALL)
 
-// Extract unique categories from project tags, simplistic approach
-const categories = computed(() => {
-  // Just generic categories for demo, in real app could be derived or explicit property
-  return ['Todos', 'Desarrollo Web', 'Diseño UI/UX', 'Aplicaciones Móviles']
-})
+// Las categorías salen de los propios proyectos: si se agrega una nueva, aparece su filtro
+const categories = computed(() => [ALL, ...new Set(projects.map((p) => p.category))])
 
-// Custom filtering logic (simulated for now based on tags/content)
-const filteredProjects = computed(() => {
-  if (activeCategory.value === 'Todos') return projects
-  
-  // Simple mapping for demo purposes since projects have tech tags not categories
-  const term = activeCategory.value.toLowerCase()
-  if (term.includes('web')) return projects.filter(p => p.tags.some(t => ['Vue 3', 'React', 'Astro', 'Next.js'].some(k => t.includes(k))))
-  if (term.includes('móvi')) return projects.filter(p => p.tags.some(t => ['React Native', 'Flutter', 'iOS'].some(k => t.includes(k))))
-  if (term.includes('diseño')) return projects.filter(p => p.tags.some(t => ['Figma', 'CSS'].some(k => t.includes(k))) || p.description.toLowerCase().includes('diseño'))
-  
-  return projects
-})
+const filteredProjects = computed(() =>
+  activeCategory.value === ALL ? projects : projects.filter((p) => p.category === activeCategory.value)
+)
 </script>
 
 <style scoped>
 .projects-page {
-  background-color: #f8fafc;
+  background-color: var(--color-surface-alt);
   min-height: 100vh;
 }
 
-.hero {
-  background: #1e293b;
-  color: white;
-  padding: 80px 0 60px;
-  text-align: center;
-}
 
-.hero h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  margin-bottom: 16px;
-}
 
-.hero p {
-  font-size: 1.25rem;
-  color: #94a3b8;
-  max-width: 600px;
-  margin: 0 auto;
-}
 
 .container {
-  max-width: 1200px;
+  max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -134,27 +93,26 @@ const filteredProjects = computed(() => {
 }
 
 .filter-btn {
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
   padding: 10px 24px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-muted);
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
 }
 
 .filter-btn:hover {
-  background: #f1f5f9;
-  color: #334155;
+  background: var(--color-surface-muted);
+  color: var(--color-text-body);
 }
 
 .filter-btn.active {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
 }
 
 .projects-grid {
@@ -163,104 +121,10 @@ const filteredProjects = computed(() => {
   gap: 30px;
 }
 
-.project-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #e2e8f0;
-}
-
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.image-wrapper {
-  height: 220px;
-  overflow: hidden;
-  position: relative;
-}
-
-.image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.project-card:hover .image-wrapper img {
-  transform: scale(1.05);
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.project-card:hover .overlay {
-  opacity: 1;
-}
-
-.view-btn {
-  background: white;
-  color: #0f1742;
-  padding: 10px 24px;
-  border-radius: 50px;
-  font-weight: 600;
-  text-decoration: none;
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover .view-btn {
-  transform: scale(1);
-}
-
-.card-body {
-  padding: 24px;
-}
-
-.tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.tag {
-  font-size: 0.75rem;
-  background: #f1f5f9;
-  color: #475569;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 8px;
-}
-
-.card-description {
-  color: #64748b;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
 .empty-state {
   text-align: center;
   padding: 40px;
-  color: #94a3b8;
+  color: var(--color-text-soft);
 }
 
 /* Transitions */

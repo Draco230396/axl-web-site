@@ -1,7 +1,7 @@
 # Dependencias
 node_modules/
 
-# Build de producción
+# Build de producción (Vercel lo genera en cada despliegue)
 dist/
 
 # Archivos de entorno
@@ -31,6 +31,9 @@ coverage/
 
 # Cache de Vite
 .vite/
+
+# Build temporal del prerender
+dist-ssr/
 
 # Archivos generados por TypeScript
 *.tsbuildinfo

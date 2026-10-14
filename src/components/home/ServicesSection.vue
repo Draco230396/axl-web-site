@@ -1,135 +1,118 @@
 <template>
-  <section class="services-section">
+  <section id="servicios" class="services" aria-labelledby="services-title">
     <div class="container">
-      <div class="section-header">
-        <h2>Nuestros Servicios</h2>
-        <p>Soluciones digitales diseñadas para impulsar tu negocio al siguiente nivel</p>
-      </div>
+      <header class="head">
+        <h2 id="services-title">Lo que construimos para tu empresa</h2>
+        <p>Seis formas de usar la tecnología para operar mejor, crecer y escalar.</p>
+      </header>
 
-      <div class="services-grid">
-        <div 
-          v-for="service in services" 
-          :key="service.id" 
-          class="service-card"
-        >
-          <div class="icon-wrapper" :class="service.color">
-            <span class="emoji-icon">{{ service.icon }}</span>
-          </div>
+      <ul class="grid">
+        <li v-for="service in services" :key="service.id" class="service">
+          <span class="icon-box">
+            <ServiceIcon :name="service.icon" />
+          </span>
           <h3>{{ service.title }}</h3>
           <p>{{ service.description }}</p>
-          <a href="#" class="learn-more">Saber más &rarr;</a>
-        </div>
-      </div>
+          <router-link :to="`/?servicio=${service.slug}#cotizar`" class="quote-link">
+            Cotizar este servicio
+          </router-link>
+        </li>
+      </ul>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import services from '@/data/services'
+import ServiceIcon from '@/components/ServiceIcon.vue'
 </script>
 
 <style scoped>
-.services-section {
-  padding: 80px 0;
-  background-color: #f8fafc;
+.services {
+  background: #ffffff;
+  padding: var(--section-space) 0;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.section-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 60px;
+.head {
+  max-width: 640px;
+  margin-bottom: clamp(48px, 6vw, 72px);
 }
 
 h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin-bottom: 16px;
-  letter-spacing: -0.02em;
+  font-size: var(--text-3xl);
+  color: var(--ink);
 }
 
-.section-header p {
-  color: #64748b;
-  font-size: 1.125rem;
-  line-height: 1.6;
+.head p {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: var(--text-lg);
 }
 
-.services-grid {
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 56px 40px;
 }
 
-.service-card {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  position: relative;
-  overflow: hidden;
+.service {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
-  border-color: transparent;
-}
-
-.icon-wrapper {
-  width: 60px;
-  height: 60px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.icon-box {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%); /* Fallback */
-}
-
-/* Gradient classes applied dynamically */
-.from-blue-400.to-blue-600 { background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%); }
-.from-purple-400.to-purple-600 { background: linear-gradient(135deg, #c084fc 0%, #9333ea 100%); }
-.from-green-400.to-green-600 { background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%); }
-.from-orange-400.to-orange-600 { background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%); }
-
-.emoji-icon {
-  font-size: 28px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--signal);
 }
 
 h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e293b;
+  font-size: var(--text-lg);
+  color: var(--ink);
   margin-bottom: 12px;
 }
 
-p {
-  color: #64748b;
-  line-height: 1.6;
-  margin-bottom: 24px;
-  flex-grow: 1;
+.service p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
-.learn-more {
-  color: #2563eb;
+.quote-link {
+  margin-top: auto;
+  color: var(--signal);
   font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: gap 0.2s ease;
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.15s ease;
 }
 
-.service-card:hover .learn-more {
-  gap: 8px;
+.quote-link:hover {
+  text-decoration-color: currentColor;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
 }
 </style>

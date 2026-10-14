@@ -9,7 +9,8 @@
       "DOM.Iterable"
     ],
     "types": [
-      "vite/client"
+      "vite/client",
+      "node"
     ],
     "skipLibCheck": true,
     /* Bundler mode */
@@ -34,7 +35,8 @@
   },
   "include": [
     "src",
+    "api",
     "vite.config.ts",
     "src/**/*.vue"
   ]
-}
+}

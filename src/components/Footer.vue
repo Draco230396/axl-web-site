@@ -1,188 +1,172 @@
 <template>
-  <footer class="footer">
+  <footer class="footer on-dark">
     <div class="container">
-      <div class="footer-grid">
-        <!-- Company Info -->
-        <div class="footer-col">
-          <div class="logo-area">
-            <span class="logo-text">A.X.L</span>
-          </div>
-          <p class="description">
-            Impulsamos la transformación digital de empresas líderes con tecnología de vanguardia y diseño estratégico.
-          </p>
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/a-x-l-advanced-exponential-logic9729a43aa/" target="_blank" class="social-link" aria-label="LinkedIn">LinkedIn</a>
-            <a href="https://www.facebook.com/Advanced.eXponential.Logic" target="_blank" class="social-link" aria-label="Facebook">Facebook</a>
-            <a href="https://www.instagram.com/axlconsultings/" target="_blank" class="social-link" aria-label="Instagram">Instagram</a>
-          </div>
+      <div class="grid">
+        <div class="brand">
+          <img :src="logo" alt="A.X.L – Advanced eXponential Logic" width="122" height="48" />
+          <p>Desarrollo de software a medida, integraciones y automatización para empresas en México.</p>
+          <ul class="social">
+            <li v-for="link in footerSocial" :key="link.id">
+              <a :href="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+            </li>
+          </ul>
         </div>
 
-        <!-- Quick Links -->
-        <div class="footer-col">
-          <h3>Enlaces Rápidos</h3>
+        <nav aria-labelledby="footer-nav">
+          <h2 id="footer-nav">Navegación</h2>
           <ul>
             <li><router-link to="/">Inicio</router-link></li>
-            <li><router-link to="/projects">Proyectos</router-link></li>
-            <li><router-link to="/about">Nosotros</router-link></li>
+            <li v-for="item in menu" :key="item.label">
+              <router-link :to="item.link">{{ item.label }}</router-link>
+            </li>
             <li><router-link to="/contact">Contacto</router-link></li>
           </ul>
-        </div>
+        </nav>
 
-        <!-- Services -->
-        <div class="footer-col">
-          <h3>Servicios</h3>
+        <nav aria-labelledby="footer-services">
+          <h2 id="footer-services">Servicios</h2>
           <ul>
-            <li>Desarrollo Web</li>
-            <li>Aplicaciones Móviles</li>
-            <li>Consultoría TI</li>
-            <li>Diseño UI/UX</li>
+            <li v-for="service in services" :key="service.id">
+              <router-link :to="`/?servicio=${service.slug}#cotizar`">{{ service.shortTitle }}</router-link>
+            </li>
           </ul>
-        </div>
+        </nav>
 
-        <!-- Contact Info -->
-        <div class="footer-col">
-          <h3>Contacto</h3>
-          <ul class="contact-info">
-            <li>
-              <span class="icon">📍</span>
-              México (Híbrido/Remoto)
-            </li>
-            <li>
-              <span class="icon">📧</span>
-              consultings996@gmail.com
-            </li>
-            <li>
-              <span class="icon">📞</span>
-              +52 2381476695
-            </li>
+        <div>
+          <h2>Contacto</h2>
+          <ul>
+            <li><a :href="`mailto:${company.email}`">{{ company.email }}</a></li>
+            <li><a :href="company.phone.href">{{ company.phone.display }}</a></li>
+            <li class="plain">{{ company.location }}</li>
           </ul>
         </div>
       </div>
 
-      <div class="footer-bottom">
-        <p>&copy; {{ new Date().getFullYear() }} A.X.L - Todos los derechos reservados.</p>
-        <div class="legal-links">
-          <router-link to="/privacy">Privacidad</router-link>
-          <router-link to="/terms">Términos</router-link>
-        </div>
+      <div class="bottom">
+        <p>&copy; {{ year }} {{ company.legalName }}</p>
+        <ul>
+          <li><router-link to="/privacy">Aviso de privacidad</router-link></li>
+          <li><router-link to="/terms">Términos y condiciones</router-link></li>
+        </ul>
       </div>
     </div>
   </footer>
 </template>
 
+<script setup lang="ts">
+import { company, socialLinks } from '@/data/company'
+import services from '@/data/services'
+import menu from '@/data/menu'
+import logo from '@/assets/brand/logo-axl.webp'
+
+const footerSocial = socialLinks.filter((s) => s.id !== 'whatsapp')
+const year = new Date().getFullYear()
+</script>
+
 <style scoped>
 .footer {
-  background-color: #0f172a;
-  color: #94a3b8;
-  padding: 80px 0 30px;
+  background: #06111f;
+  color: var(--muted-dark);
+  padding: clamp(64px, 8vw, 96px) 0 32px;
   font-size: 0.95rem;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer-grid {
+.grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 60px;
+  grid-template-columns: 1.6fr 1fr 1.1fr 1.2fr;
+  gap: 48px 40px;
+  padding-bottom: 56px;
 }
 
-@media (max-width: 900px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-  }
+.brand img {
+  height: 44px;
+  width: auto;
+  display: block;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 600px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.footer-col h3 {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 24px;
-}
-
-.logo-text {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  display: inline-block;
-  margin-bottom: 16px;
-}
-
-.description {
+.brand p {
+  margin: 0 0 24px;
+  max-width: 34ch;
   line-height: 1.6;
-  margin-bottom: 24px;
-  max-width: 300px;
+}
+
+h2 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #ffffff;
+  margin-bottom: 18px;
 }
 
 ul {
   list-style: none;
-  padding: 0;
   margin: 0;
-}
-
-li {
-  margin-bottom: 12px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
 }
 
 a {
-  color: #94a3b8;
+  color: var(--muted-dark);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
 
 a:hover {
-  color: #38bdf8;
+  color: var(--ice);
 }
 
-.social-links {
+.social {
   display: flex;
-  gap: 16px;
-}
-
-.social-link {
-  color: white;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-}
-
-.social-link:hover {
-  background: white;
-  color: #0f172a;
-}
-
-.contact-info li {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.footer-bottom {
-  padding-top: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 8px;
 }
 
-.legal-links {
+.social a {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius-pill);
+}
+
+.social a:hover {
+  border-color: var(--ice);
+}
+
+.bottom {
+  padding-top: 28px;
+  border-top: 1px solid var(--line-dark);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--text-sm);
+}
+
+.bottom p {
+  margin: 0;
+}
+
+.bottom ul {
   display: flex;
   gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

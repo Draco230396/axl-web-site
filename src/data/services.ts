@@ -1,40 +1,67 @@
+export type ServiceIconName = 'code' | 'cloud' | 'devices' | 'automation' | 'integration' | 'growth'
+
 export interface Service {
     id: number;
+    /** Identificador estable (se usa en el formulario de cotización) */
+    slug: string;
     title: string;
+    /** Versión corta para listas (footer, formulario) */
+    shortTitle: string;
     description: string;
-    icon: string; // Using emojis for now as placeholders, can swap for SVG component names later
-    color: string;
+    icon: ServiceIconName;
 }
 
 const services: Service[] = [
     {
         id: 1,
-        title: 'Desarrollo Web',
-        description: 'Sitios web modernos, rápidos y responsivos utilizando las últimas tecnologías como Vue.js, React y Node.js.',
-        icon: '💻',
-        color: 'from-blue-400 to-blue-600'
+        slug: 'software-a-medida',
+        title: 'Desarrollo de software a medida',
+        shortTitle: 'Software a medida',
+        description: 'Diseñamos y construimos sistemas a la medida de tus procesos, desde el análisis de requerimientos hasta la puesta en producción y el soporte.',
+        icon: 'code'
     },
     {
         id: 2,
-        title: 'Diseño UI/UX',
-        description: 'Interfaces intuitivas y atractivas que mejoran la experiencia del usuario y la conversión.',
-        icon: '🎨',
-        color: 'from-purple-400 to-purple-600'
+        slug: 'microservicios-cloud',
+        title: 'Arquitectura de microservicios y cloud',
+        shortTitle: 'Microservicios y cloud',
+        description: 'Diseñamos arquitecturas escalables y seguras, y migramos o desplegamos tus aplicaciones en la nube con buenas prácticas de DevOps.',
+        icon: 'cloud'
     },
     {
         id: 3,
-        title: 'SEO & Marketing',
-        description: 'Optimización para motores de búsqueda y estrategias digitales para hacer crecer tu negocio.',
-        icon: '🚀',
-        color: 'from-green-400 to-green-600'
+        slug: 'web-movil',
+        title: 'Desarrollo de plataformas web y móviles',
+        shortTitle: 'Plataformas web y móviles',
+        description: 'Creamos portales, aplicaciones web y apps móviles rápidas, responsivas y fáciles de usar para tus clientes y colaboradores.',
+        icon: 'devices'
     },
     {
         id: 4,
-        title: 'Aplicaciones Móviles',
-        description: 'Desarrollo de apps nativas e híbridas para iOS y Android.',
-        icon: '📱',
-        color: 'from-orange-400 to-orange-600'
+        slug: 'automatizacion',
+        title: 'Automatización de procesos empresariales',
+        shortTitle: 'Automatización de procesos',
+        description: 'Eliminamos tareas manuales y repetitivas con flujos automatizados, reduciendo errores y liberando tiempo de tu equipo.',
+        icon: 'automation'
+    },
+    {
+        id: 5,
+        slug: 'integraciones',
+        title: 'Integraciones de sistemas y APIs',
+        shortTitle: 'Integraciones y APIs',
+        description: 'Conectamos tus sistemas, ERPs y servicios de terceros mediante APIs para que la información fluya sin capturas dobles.',
+        icon: 'integration'
+    },
+    {
+        id: 6,
+        slug: 'transformacion-digital',
+        title: 'Consultoría en transformación digital',
+        shortTitle: 'Transformación digital',
+        description: 'Evaluamos tu operación actual y definimos una hoja de ruta tecnológica con prioridades claras y resultados medibles.',
+        icon: 'growth'
     }
 ];
+
+export const serviceBySlug = (slug: string) => services.find((s) => s.slug === slug)
 
 export default services;

@@ -1,0 +1,65 @@
+/*
+ * Variables de diseño del sitio.
+ * Paleta derivada del logo: tinta azul profunda + cian hielo de los trazos de circuito.
+ * Cambia un valor aquí y se actualiza en todos los componentes.
+ */
+:root {
+  /* Paleta base */
+  --ink: #0a1a2f;          /* fondos oscuros y texto principal */
+  --ink-raised: #11294a;   /* superficies elevadas sobre fondo oscuro */
+  --ice: #9fdcf5;          /* acento de marca sobre fondo oscuro (trazos del logo) */
+  --signal: #0b65a3;       /* acento sobre fondo claro (enlaces, botones) */
+  --signal-hover: #08528a;
+  --paper: #f3f7fa;        /* secciones claras */
+  --line: #d5e1eb;         /* bordes y divisores sobre claro */
+  --line-dark: rgba(159, 220, 245, 0.22); /* bordes y trazos sobre oscuro */
+  --muted: #4a6178;        /* texto secundario sobre claro */
+  --muted-dark: #a9bccd;   /* texto secundario sobre oscuro */
+
+  /* Tipografía */
+  --font-display: 'Sora Variable', 'Sora', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Escala tipográfica (razón ~1.25) */
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5625rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: clamp(2rem, 4.2vw, 2.75rem);
+  --text-hero: clamp(2.3rem, 5vw, 3.7rem);
+
+  /* Forma: radios distintos según jerarquía */
+  --radius-sm: 6px;   /* etiquetas, inputs */
+  --radius-md: 10px;  /* botones, tarjetas pequeñas */
+  --radius-lg: 16px;  /* paneles grandes */
+  --radius-pill: 999px;
+
+  /* Layout */
+  --container-width: 1180px;
+  --gutter: clamp(20px, 4vw, 40px);
+  --section-space: clamp(72px, 10vw, 120px);
+  --header-height: 72px;
+
+  /* Compatibilidad con los nombres anteriores (páginas aún sin rediseñar) */
+  --color-primary: var(--signal);
+  --color-primary-hover: var(--signal-hover);
+  --color-primary-soft: #e6f1f9;
+  --color-accent: var(--signal);
+  --color-accent-light: var(--ice);
+  --color-link-hover: var(--ice);
+  --color-text-strong: var(--ink);
+  --color-text: var(--ink);
+  --color-text-body: #253a52;
+  --color-text-secondary: var(--muted);
+  --color-text-muted: var(--muted);
+  --color-text-soft: var(--muted-dark);
+  --color-text-faint: var(--muted-dark);
+  --color-white: #ffffff;
+  --color-surface-alt: var(--paper);
+  --color-surface-muted: #e9f0f6;
+  --color-border: var(--line);
+  --color-dark: var(--ink);
+  --color-success: #15803d;
+  --color-danger: #b91c1c;
+}
